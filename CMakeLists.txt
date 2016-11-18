@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.0)
-PROJECT(HOG_Trainer)
+PROJECT(Pedestrian_Tracking_Application)
 
 # Find the QtCore and QtWidgets libraries
 find_package(Qt5Widgets REQUIRED)
@@ -22,12 +22,12 @@ file(GLOB HEADERS ${PROJECT_SOURCE_DIR}/Include/*.h )
 
 
 # Glob Project User Interface Files
-file(GLOB HOG_Trainer_FORMS ${PROJECT_SOURCE_DIR}/Source/*.ui )
+file(GLOB Pedestrian_Tracking_Application_FORMS ${PROJECT_SOURCE_DIR}/Source/*.ui )
 
 
 # MOC the headers and user interface
 QT5_WRAP_CPP( HEADERS_MOC ${HEADERS} )
-QT5_WRAP_UI( HOG_Trainer_FORMS_HEADERS ${HOG_Trainer_FORMS} )
+QT5_WRAP_UI( Pedestrian_Tracking_Application_FORMS_HEADERS ${Pedestrian_Tracking_Application_FORMS} )
 
 # Add Qt Definitions
 ADD_DEFINITIONS( ${QT_DEFINITIONS} )
@@ -47,13 +47,13 @@ ADD_DEFINITIONS( ${QT_DEFINITIONS} )
 source_group ("Headers" FILES ${HEADERS})
 source_group ("Source" FILES ${SOURCES})
 source_group ("MOC" FILES ${HEADERS_MOC})
-source_group ("UI Form Headers" FILES ${HOG_Trainer_FORMS_HEADERS})
+source_group ("UI Form Headers" FILES ${Pedestrian_Tracking_Application_FORMS_HEADERS})
 
 # Add Executables
-ADD_EXECUTABLE(HOG_Trainer ${SOURCES} ${HEADERS_MOC} ${HOG_Trainer_FORMS_HEADERS} ${HEADERS})
+ADD_EXECUTABLE(Pedestrian_Tracking_Application ${SOURCES} ${HEADERS_MOC} ${Pedestrian_Tracking_Application_FORMS_HEADERS} ${HEADERS})
 
 
 
 # Target link libraries
 #target_link_libraries (Pedestrian_Tracking_Application Qt5::Widgets dlib ${OpenCV_LIBS})
-target_link_libraries (HOG_Trainer Qt5::Widgets ${OpenCV_LIBS})
+target_link_libraries (Pedestrian_Tracking_Application Qt5::Widgets ${OpenCV_LIBS})
