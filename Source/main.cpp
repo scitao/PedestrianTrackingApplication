@@ -39,54 +39,55 @@ int main(int argc, char** argv)
 	cout << "\t All Rights Reserved" << endl;
 	cout << "\t ------------------------------------------------" << endl;
 	
-	string videoFile = "C:\\Users\\uqshislo\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\BAC_DOMESTIC_VIRGIN_20160915_AUTOMATEDKIOSK2_2of3.MP4";
 
-	// Establish a video input stream 
-	VideoCapture cap;
-	cap.open(videoFile);
-	cap.set(CV_CAP_PROP_POS_FRAMES, 100);
-
-	// Open a new HOG classifier
+	// Open a new HOG classifier and set the people detector
 	HOGDescriptor hog;
-	const vector<float> peopledetector = hog.getDefaultPeopleDetector();
-	hog.setSVMDetector(peopledetector);
+	hog.blockSize = cv::Size(16, 16);
+	hog.cellSize = cv::Size(8, 8);
+	static vector<float> supportVectors = hog.getDefaultPeopleDetector();
+	hog.setSVMDetector(supportVectors);
+	
+	// Get filepath to video
+	string fileDirectory = "C:\\Users\\Samue\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
+	string fileName = "BAC_DOMESTIC_VIRGIN_20160915_AUTOMATEDKIOSK2_3of3.MP4";
+
+	// Create descriptor and detection variables
+	vector<float> computedDescriptors;
+	vector<cv::Point> detections;
 
 	// Create named windows
-	cvNamedWindow("Output", CV_WINDOW_KEEPRATIO);
+	cvNamedWindow("Input", CV_WINDOW_KEEPRATIO);
 	cvNamedWindow("Features", CV_WINDOW_KEEPRATIO);
+
 	// Loop through the video and show detections
-	Mat img, detection, detectionBW;
-	vector<Point> foundLocations;
-	while (cap.read(img))
+	VideoCapture cap(fileDirectory + fileName);
+	Mat frame;
+	cap.set(CV_CAP_PROP_POS_FRAMES, 100);
+
+	while (cap.isOpened())
 	{
-		// Detect people
-		hog.detect(img, foundLocations);
+		cap >> frame;
+		imshow("Input", frame);
+		cv::waitKey(2);
 
-		// Place bounding boxes around people
-		for (int i = 0; i < foundLocations.size(); i++)
+		// Detect
+		hog.detect(frame, detections);
+
+		// Show detections
+		for (int i = 0; i < detections.size(); i++)
 		{
-			cv::Rect2i rect(foundLocations.at(i).x, foundLocations.at(i).y, hog.winSize.width, hog.winSize.height);
-			cv::rectangle(img, rect, cv::Scalar(0, 0, 255));
-			imshow("Output", img);
-			cv::waitKey(2);
-
-			// Compute good features to track over the found location regions
-			vector<cv::Point2f> corners;
-			detection = Mat(img, rect).clone();
-			detectionBW;
-			cv::cvtColor(detection, detectionBW, CV_BGR2GRAY);
-			cv::goodFeaturesToTrack(detectionBW, corners, 100, 0.01, 10);
-
-			for (int j = 0; j < corners.size(); j++)
-			{
-				circle(detection, corners[j], 4, cv::Scalar(0, 255, 0), -1, 8, 0);
-				imshow("Features", detection);
-				cv::waitKey(2);
-			}
+			cv::Rect2i rect(detections.at(i).x, detections.at(i).y, 96, 160);
+			cv::rectangle(frame, rect, cv::Scalar(0, 255, 0), 1);
 		}
+		imshow("Features", frame);
+		cv::waitKey(500);
 
-		
+		// Calculate corners to be used for detection..
+
+		// Track corners..
+
 	}
+
 
 	return 0;
 }
