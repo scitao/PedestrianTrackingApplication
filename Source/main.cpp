@@ -9,7 +9,7 @@
 using namespace cv;
 using namespace std;
 
-/// Global variables
+// Global variables
 Mat src, src_gray;
 
 int maxCorners = 23;
@@ -18,16 +18,14 @@ int maxTrackbar = 450;
 RNG rng(12345);
 char* source_window = "Image";
 
-/// Function header
-void goodFeaturesToTrack_Demo(int, void*);
+// Function header
+void goodFeaturesToTrack(int, void*);
 
-/**
-* @function main
-*/
+
 int main(int argc, char** argv)
 {
 	// Get filepath to video
-	string fileDirectory = "C:\\Users\\uqshislo\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
+	string fileDirectory = "C:\\Users\\Samue\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
 	string fileName = "BAC_DOMESTIC_VIRGIN_20160915_GANTRY2_3of3.MP4";
 
 	Mat frame;
@@ -50,11 +48,11 @@ int main(int argc, char** argv)
 		namedWindow(source_window, CV_WINDOW_AUTOSIZE);
 
 		// Create Trackbar to set the number of corners
-		createTrackbar("Max  corners:", source_window, &maxCorners, maxTrackbar, goodFeaturesToTrack_Demo);
+		createTrackbar("Max  corners:", source_window, &maxCorners, maxTrackbar, goodFeaturesToTrack);
 
 		imshow(source_window, src);
 
-		goodFeaturesToTrack_Demo(0, 0);
+		goodFeaturesToTrack(0, 0);
 
 		waitKey(50);
 
@@ -64,15 +62,12 @@ int main(int argc, char** argv)
 	return(0);
 }
 
-/**
-* @function goodFeaturesToTrack_Demo.cpp
-* @brief Apply Shi-Tomasi corner detector
-*/
-void goodFeaturesToTrack_Demo(int, void*)
+
+void goodFeaturesToTrack(int, void*)
 {
 	if (maxCorners < 1) { maxCorners = 1; }
 
-	/// Parameters for Shi-Tomasi algorithm
+	// Parameters for Shi-Tomasi algorithm
 	vector<Point2f> corners;
 	double qualityLevel = 0.01;
 	double minDistance = 10;
@@ -80,11 +75,11 @@ void goodFeaturesToTrack_Demo(int, void*)
 	bool useHarrisDetector = false;
 	double k = 0.04;
 
-	/// Copy the source image
+	// Copy the source image
 	Mat copy;
 	copy = src.clone();
 
-	/// Apply corner detection
+	// Apply corner detection
 	goodFeaturesToTrack(src_gray,
 		corners,
 		maxCorners,
@@ -96,7 +91,7 @@ void goodFeaturesToTrack_Demo(int, void*)
 		k);
 
 
-	/// Draw corners detected
+	// Draw corners detected
 	cout << "** Number of corners detected: " << corners.size() << endl;
 	int r = 4;
 	for (int i = 0; i < corners.size(); i++)
@@ -105,11 +100,10 @@ void goodFeaturesToTrack_Demo(int, void*)
 			rng.uniform(0, 255)), -1, 8, 0);
 	}
 
-	/// Show what you got
+	// Show what you got
 	namedWindow(source_window, CV_WINDOW_KEEPRATIO);
 	imshow(source_window, copy);
 }
-
 
 
 
@@ -189,8 +183,8 @@ int main(int argc, char** argv)
 	hog.setSVMDetector(supportVectors);
 	
 	// Get filepath to video
-	string fileDirectory = "C:\\Users\\uqshislo\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
-	string fileName = "BAC_DOMESTIC_VIRGIN_20160915_AUTOMATEDKIOSK2_3of3.MP4";
+	string fileDirectory = "C:\\Users\\Samue\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
+	string fileName = "BAC_DOMESTIC_VIRGIN_20160915_GANTRY2_3of3.MP4";
 
 	// Create descriptor and detection variables
 	vector<float> computedDescriptors;
