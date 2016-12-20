@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>createNewProjectWizardPage2</class>
+ <widget class="QWidget" name="createNewProjectWizardPage2">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>670</height>
+    <height>850</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>450</width>
-    <height>670</height>
+    <height>850</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>450</width>
-    <height>670</height>
+    <height>850</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -40,7 +40,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Step 2. Add Cameras</string>
+      <string>Add/Edit Cameras</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -102,20 +102,16 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="1">
-       <widget class="QPushButton" name="PreviousFrameButton">
-        <property name="text">
-         <string>Previous Frame</string>
+      <item row="2" column="0" colspan="2">
+       <widget class="QLabel" name="videoFileNameLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QWidget" name="videoWidget" native="true"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="nextFrameButton">
         <property name="text">
-         <string>Next Frame</string>
+         <string>No Video File Selected!</string>
         </property>
        </widget>
       </item>
@@ -126,34 +122,61 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Sync Frame :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
+      <item row="6" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
          <string>Sync Time:</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QDateTimeEdit" name="syncDateTimeEdit">
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Sync Frame :</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="5" column="1">
        <widget class="QSpinBox" name="currentFrameSpinBox">
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
         <property name="maximum">
          <number>999999999</number>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="nextFrameButton">
+        <property name="text">
+         <string>Next Frame</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QDateTimeEdit" name="syncDateTimeEdit">
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QWidget" name="videoWidget" native="true"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="PreviousFrameButton">
+        <property name="text">
+         <string>Previous Frame</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QSlider" name="videoPositionSlider">
+        <property name="maximum">
+         <number>999999999</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>

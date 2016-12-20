@@ -41,16 +41,13 @@
 
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "WelcomeDialog.h"
-#include "NewProjectWizard.h"
-#include "SaveProject.h"
-#include "LoadProject.h"
 #include "ProjectVariables.h"
-
+#include "NewProjectWizardPage1.h"
+#include "NewProjectWizardPage2.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "ui_TrackingApplicationMainWindowUI.h"
+#include "ui_EmptyWizardDialog.h"
 
 
 // Namespaces
@@ -77,55 +74,56 @@ using cv::imshow;
 
 namespace Ui
 {
-	class TrackingApplicationMainWindow;
+	class EmptyWizard;
 }
- 
-class TrackingApplicationMainWindow : public QMainWindow
+
+class NewProjectWizard : public QDialog
 {
 	Q_OBJECT
 
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	TrackingApplicationMainWindow(QWidget *parent = 0);
-	~TrackingApplicationMainWindow();
+	NewProjectWizard(ProjectVariables* _prjVariables, QMainWindow *parent = 0);
+	~NewProjectWizard();
 
 	// Public Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+	
 	// Public Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	QRect screenSize;
-	ProjectVariables* prjVariables;
 
-public slots:
+	public slots:
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void loadProject();
-	void createNewProject();
+	void setPage1ProjectVariables();
+	void setPage2ProjectVariables();
+	void prematureCloseNewProjectWizard();
+	void checkPage1();
 
 	// Public Ui Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void enableMainUi(bool mainUiIsEnabled);
-	void updateUserInterfaceProjectInformation();
-	void showWelcomeDialog();
+
 
 signals:
+	void prematureNewProjectWizardClose();
 
 private:
 	// Private Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void clearCurrentProject();
+	void newPage1();
+	void newPage2();
 
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Ui::TrackingApplicationMainWindow* mainWindowUi;
-	Welcome* welcome = NULL;
-	NewProjectWizard* newProjectWizard = NULL;
+	Ui::BlankWizard* wizardDialog;
+	NewProjectWizardPage1* page1 = NULL;
+	NewProjectWizardPage2* page2 = NULL;
+	ProjectVariables* prjVariables = NULL;
 
 	// Private Flags
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	bool projectLoadedFlag = false;
-	bool projectChangedFlag = false;
+
 };

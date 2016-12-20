@@ -45,6 +45,7 @@ source_group ("Source" FILES ${SOURCES})
 source_group ("MOC" FILES ${HEADERS_MOC})
 source_group ("UI Form Headers" FILES ${Pedestrian_Tracking_Application_FORMS_HEADERS})
 
+
 # Add Executables
 ADD_EXECUTABLE(Pedestrian_Tracking_Application ${SOURCES} ${HEADERS_MOC} ${Pedestrian_Tracking_Application_FORMS_HEADERS} ${HEADERS})
 

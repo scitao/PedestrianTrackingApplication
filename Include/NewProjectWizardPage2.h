@@ -41,17 +41,11 @@
 
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "WelcomeDialog.h"
-#include "NewProjectWizard.h"
-#include "SaveProject.h"
-#include "LoadProject.h"
-#include "ProjectVariables.h"
 
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "ui_TrackingApplicationMainWindowUI.h"
-
+#include "ui_CreateNewProjectWizardPage2.h"
 
 // Namespaces
 //==================================================
@@ -77,55 +71,48 @@ using cv::imshow;
 
 namespace Ui
 {
-	class TrackingApplicationMainWindow;
+	class createNewProjectWizardPage2;
 }
- 
-class TrackingApplicationMainWindow : public QMainWindow
+
+class NewProjectWizardPage2 : public QWidget
 {
 	Q_OBJECT
 
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	TrackingApplicationMainWindow(QWidget *parent = 0);
-	~TrackingApplicationMainWindow();
+	NewProjectWizardPage2(QDialog *parent = 0);
+	~NewProjectWizardPage2();
 
 	// Public Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+	
 	// Public Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	QRect screenSize;
-	ProjectVariables* prjVariables;
-
-public slots:
+	Ui::createNewProjectWizardPage2* page2;
+	public slots:
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void loadProject();
-	void createNewProject();
+
 
 	// Public Ui Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void enableMainUi(bool mainUiIsEnabled);
-	void updateUserInterfaceProjectInformation();
-	void showWelcomeDialog();
+
 
 signals:
 
 private:
 	// Private Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void clearCurrentProject();
+
 
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Ui::TrackingApplicationMainWindow* mainWindowUi;
-	Welcome* welcome = NULL;
-	NewProjectWizard* newProjectWizard = NULL;
+
 
 	// Private Flags
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	bool projectLoadedFlag = false;
-	bool projectChangedFlag = false;
+
 };

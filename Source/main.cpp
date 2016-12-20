@@ -1,236 +1,75 @@
-﻿#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
+﻿// Include Directories
+// =============================================================
 
-
-
-using namespace cv;
-using namespace std;
-
-// Global variables
-Mat src, src_gray;
-
-int maxCorners = 23;
-int maxTrackbar = 450;
-
-RNG rng(12345);
-char* source_window = "Image";
-
-// Function header
-void goodFeaturesToTrack(int, void*);
-
-
-int main(int argc, char** argv)
-{
-	// Get filepath to video
-	string fileDirectory = "C:\\Users\\Samue\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
-	string fileName = "BAC_DOMESTIC_VIRGIN_20160915_GANTRY2_3of3.MP4";
-
-	Mat frame;
-	vector<Point> features;
-
-	// Loop through the video and show detections
-	VideoCapture cap(fileDirectory + fileName);
-	cap.set(CV_CAP_PROP_POS_FRAMES, 100);
-
-
-	while (cap.isOpened())
-	{
-		cap >> frame;
-
-		// Load source image and convert it to gray
-		src = frame;
-		cvtColor(src, src_gray, CV_BGR2GRAY);
-
-		// Create Window
-		namedWindow(source_window, CV_WINDOW_AUTOSIZE);
-
-		// Create Trackbar to set the number of corners
-		createTrackbar("Max  corners:", source_window, &maxCorners, maxTrackbar, goodFeaturesToTrack);
-
-		imshow(source_window, src);
-
-		goodFeaturesToTrack(0, 0);
-
-		waitKey(50);
-
-	}
-
-
-	return(0);
-}
-
-
-void goodFeaturesToTrack(int, void*)
-{
-	if (maxCorners < 1) { maxCorners = 1; }
-
-	// Parameters for Shi-Tomasi algorithm
-	vector<Point2f> corners;
-	double qualityLevel = 0.01;
-	double minDistance = 10;
-	int blockSize = 3;
-	bool useHarrisDetector = false;
-	double k = 0.04;
-
-	// Copy the source image
-	Mat copy;
-	copy = src.clone();
-
-	// Apply corner detection
-	goodFeaturesToTrack(src_gray,
-		corners,
-		maxCorners,
-		qualityLevel,
-		minDistance,
-		Mat(),
-		blockSize,
-		useHarrisDetector,
-		k);
-
-
-	// Draw corners detected
-	cout << "** Number of corners detected: " << corners.size() << endl;
-	int r = 4;
-	for (int i = 0; i < corners.size(); i++)
-	{
-		circle(copy, corners[i], r, Scalar(rng.uniform(0, 255), rng.uniform(0, 255),
-			rng.uniform(0, 255)), -1, 8, 0);
-	}
-
-	// Show what you got
-	namedWindow(source_window, CV_WINDOW_KEEPRATIO);
-	imshow(source_window, copy);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-// Include directories
-// ================================================================
+// Qt
+#include <QtCore>
 #include <qapplication.h>
-#include <qobject.h>
 
+// STL
 #include <string>
 #include <iostream>
+#include <exception>
 
-#include <opencv2\opencv.hpp>
+// Windows
+#include <Windows.h>
 
-// Namespaces and definitions
-// ================================================================
-using std::string;
-using std::vector;
-using std::list;
-using std::ifstream;
-using std::iostream;
-using std::cout;
-using std::endl;
+// Program Directories
+#include "TrackingApplicationMainWindow.h"
 
-using cv::HOGDescriptor;
-using cv::imshow;
-using cv::VideoCapture;
-using cv::Mat;
-using cv::Point;
-
-#define lInt long int
+// Namespaces
+using namespace std;
 
 
-
-// Main method
-// ================================================================
 int main(int argc, char** argv)
 {
+	// Create a GUI application
+	QApplication app(argc, argv);
 
+	// Set the global style sheet
+	QFile f("qdarkstyle/style.qss");
+	if (!f.exists())
+	{
+		printf("Unable to set stylesheet, file not found\n");
+	}
+	else
+	{
+		f.open(QFile::ReadOnly | QFile::Text);
+		QTextStream ts(&f);
+		qApp->setStyleSheet(ts.readAll());
+		f.close();
+	}
+
+	// Create a new Main Window
+	TrackingApplicationMainWindow* mainWindow = new TrackingApplicationMainWindow();
+	
 	// Print initialisation message to the console
 	cout << "\t Pedestrian Tracking Application V 0.1.0 " << endl;
 	cout << "\t Created by S.R. Hislop-Lynch " << endl;
 	cout << "\t All Rights Reserved" << endl;
 	cout << "\t ------------------------------------------------" << endl;
-	
 
-	// Open a new HOG classifier and set the people detector
-	HOGDescriptor hog;
-	hog.blockSize = cv::Size(16, 16);
-	hog.cellSize = cv::Size(8, 8);
-	static vector<float> supportVectors = hog.getDefaultPeopleDetector();
-	hog.setSVMDetector(supportVectors);
-	
-	// Get filepath to video
-	string fileDirectory = "C:\\Users\\Samue\\Dropbox\\BAC_Project_Sam\\110 - Video Data Collection\\BAC Domestic Terminal Data Collection\\20160915\\Domestic\\Virgin\\";
-	string fileName = "BAC_DOMESTIC_VIRGIN_20160915_GANTRY2_3of3.MP4";
+#ifdef NDEBUG
+	// Hide the console
+	cout << endl << endl;
+	cout << "\t >RELEASE MODE -- HIDE CONSOLE" << endl;
+	Sleep(200);
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
 
-	// Create descriptor and detection variables
-	vector<float> computedDescriptors;
-	vector<cv::Point> detections;
+#endif // NDEBUG
 
-	// Create named windows
-	cvNamedWindow("Input", CV_WINDOW_KEEPRATIO);
-	cvNamedWindow("Features", CV_WINDOW_KEEPRATIO);
+#ifdef DEBUG
+	// Clear the console
+	Sleep(200);
+	system("cls");
+#endif // DEBUG
 
-	// Loop through the video and show detections
-	VideoCapture cap(fileDirectory + fileName);
-	Mat frame, greyFrameI, greyFrameO;
-	vector<Point> features;
-
-	cap.set(CV_CAP_PROP_POS_FRAMES, 100);
-
-	while (cap.isOpened())
-	{
-		cap >> frame;
-
-		// Detect
-		hog.detect(frame, detections);
-
-		// Show detections
-		for (int i = 0; i < detections.size(); i++)
-		{
-			cv::Rect2i rect(detections.at(i).x, detections.at(i).y, 96, 160);
-			cv::rectangle(frame, rect, cv::Scalar(0, 255, 0), 1);
-		}
-		imshow("Input", frame);
-		cv::waitKey(500);
-
-		// Calculate corners to be used for detection..
-		cv::cvtColor(frame, greyFrameI, CV_BGR2GRAY);
-		cv::cornerHarris(greyFrameI, greyFrameO, 2, 3, 0.04);
-
-		imshow("Features", greyFrameO);
-		cv::waitKey(500);
-
-
-		// Track corners..
-
-	}
-
-
-	return 0;
+	// Execute
+	return(app.exec());
 }
 
-*/
+
+
+
+
+
+

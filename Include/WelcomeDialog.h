@@ -13,6 +13,7 @@
 //==================================================
 // Qt Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#include <qdialog.h>
 #include <qmainwindow.h>
 #include <qdebug.h>
 #include <qobject.h>
@@ -23,6 +24,7 @@
 #include <qdesktopwidget.h>
 #include <qscreen.h>
 #include <qsize.h>
+#include <qmovie.h>
 
 // OpenCV Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,16 +43,11 @@
 
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "WelcomeDialog.h"
-#include "NewProjectWizard.h"
-#include "SaveProject.h"
-#include "LoadProject.h"
-#include "ProjectVariables.h"
 
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "ui_TrackingApplicationMainWindowUI.h"
+#include "ui_WelcomeDialog.h"
 
 
 // Namespaces
@@ -77,55 +74,39 @@ using cv::imshow;
 
 namespace Ui
 {
-	class TrackingApplicationMainWindow;
+	class WelcomeDialog;
 }
- 
-class TrackingApplicationMainWindow : public QMainWindow
+
+class Welcome : public QDialog
 {
 	Q_OBJECT
 
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	TrackingApplicationMainWindow(QWidget *parent = 0);
-	~TrackingApplicationMainWindow();
+	Welcome(QMainWindow *parent = 0);
+	~Welcome();
 
 	// Public Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	// Public Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QRect screenSize;
-	ProjectVariables* prjVariables;
+	Ui::WelcomeDialog* welcomeDialogUi;
 
-public slots:
+	public slots:
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void loadProject();
-	void createNewProject();
 
-	// Public Ui Slots
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void enableMainUi(bool mainUiIsEnabled);
-	void updateUserInterfaceProjectInformation();
-	void showWelcomeDialog();
 
 signals:
 
 private:
 	// Private Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void clearCurrentProject();
-
+	QMovie* logoGif = NULL;
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Ui::TrackingApplicationMainWindow* mainWindowUi;
-	Welcome* welcome = NULL;
-	NewProjectWizard* newProjectWizard = NULL;
-
-	// Private Flags
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	bool projectLoadedFlag = false;
-	bool projectChangedFlag = false;
+	QRect screenSize;
 };
