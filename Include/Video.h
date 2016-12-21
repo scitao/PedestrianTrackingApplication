@@ -13,18 +13,15 @@
 //==================================================
 // Qt Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include <qdialog.h>
-#include <qmainwindow.h>
-#include <qdebug.h>
+
 #include <qobject.h>
 #include <qmessagebox.h>
 #include <qevent.h>
 #include <qfiledialog.h>
-#include <qapplication.h>
 #include <qdesktopwidget.h>
 #include <qscreen.h>
 #include <qsize.h>
-#include <qmovie.h>
+#include <qdatetime.h>
 
 // OpenCV Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,7 +44,7 @@
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "ui_WelcomeDialog.h"
+
 
 
 // Namespaces
@@ -69,45 +66,27 @@ using cv::imshow;
 
 #define lInt long int
 
-// Class Declaration
+// Struct Declaration
 //==================================================
 
-namespace Ui
+struct Video
 {
-	class WelcomeDialog;
-}
-
-class Welcome : public QDialog
-{
-	Q_OBJECT
-
 public:
-	// Constructors and Destructors
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Welcome(QMainWindow *parent = 0);
-	~Welcome();
+	// Setters
+	void setVideoDirectory(QString _videoDirectory);
+	void setSyncStartTime(QDateTime _syncStartTime);
+	void setNumberOfFrames(lInt _numberOfFrames);
+	void setVideoFileName(QString _videoFileName);
 
-	// Public Methods
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-	// Public Variables
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Ui::WelcomeDialog* welcomeDialogUi;
-
-	public slots:
-	// Public Slots
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-signals:
-	void welcomeDialogClose();
+	// Getters
+	QString getVideoFileName();
+	QString getVideoDirectory();
+	QDateTime getSyncStartTime();
+	lInt getNumberOfFrames();
 
 private:
-	// Private Methods
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QMovie* logoGif = NULL;
-
-	// Private Variables
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QRect screenSize;
+	QString videoFileName;
+	QString videoDirectory;
+	QDateTime syncStartTime;
+	lInt numberOfFrames;
 };

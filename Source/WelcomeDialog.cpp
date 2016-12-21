@@ -11,8 +11,8 @@ QDialog(parent), welcomeDialogUi(new Ui::WelcomeDialog)
 	this->setWindowTitle("Welcome");
 	this->setAttribute(Qt::WA_DeleteOnClose, true);
 
-	// Adjust the window based on the resolution of the screen
-	
+	// Remove the user's ability to close the dialog
+	this->setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::CustomizeWindowHint);
 
 	// Show the software logo
 	logoGif = new QMovie("LoadingGif3.gif");
@@ -29,4 +29,5 @@ Welcome::~Welcome()
 	// Delete heap variables
 	delete welcomeDialogUi;
 	delete logoGif;
+	emit welcomeDialogClose();
 }

@@ -29,6 +29,7 @@
 
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#include "Camera.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,6 +53,7 @@ struct ProjectVariables
 	QString projectLocation;
 	QDate projectStartDate;
 	QString saveFileName;
+	QList<Camera*> cameras;
 
 	// Methods
 	void clearProjectVariables()
@@ -60,6 +62,7 @@ struct ProjectVariables
 		projectLocation = QString();
 		projectStartDate = QDate();
 		saveFileName = QString();
+		cameras = QList<Camera*>();
 	}
 
 };

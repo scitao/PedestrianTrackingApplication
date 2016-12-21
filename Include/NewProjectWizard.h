@@ -44,6 +44,8 @@
 #include "ProjectVariables.h"
 #include "NewProjectWizardPage1.h"
 #include "NewProjectWizardPage2.h"
+#include "Camera.h"
+#include "Video.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -100,7 +102,9 @@ public:
 	void setPage1ProjectVariables();
 	void setPage2ProjectVariables();
 	void prematureCloseNewProjectWizard();
+	void wizardFinished();
 	void checkPage1();
+	void addNewCamera();
 
 	// Public Ui Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -108,6 +112,7 @@ public:
 
 signals:
 	void prematureNewProjectWizardClose();
+	void wizardClose();
 
 private:
 	// Private Methods

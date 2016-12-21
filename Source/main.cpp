@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 
 #endif // NDEBUG
 
-#ifdef DEBUG
+#ifdef _DEBUG
 	// Clear the console
 	Sleep(200);
 	system("cls");

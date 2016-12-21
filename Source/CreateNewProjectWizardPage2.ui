@@ -40,7 +40,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Add/Edit Cameras</string>
+      <string>Add Camera</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -72,7 +72,7 @@
       <item row="0" column="1">
        <widget class="QLineEdit" name="cameraNameLineEdit">
         <property name="text">
-         <string>Camera_1</string>
+         <string>Camera_Name_Here</string>
         </property>
        </widget>
       </item>
@@ -86,7 +86,7 @@
       <item row="1" column="1">
        <widget class="QLineEdit" name="cameraLocationLineEdit">
         <property name="text">
-         <string>Camera_North_Above</string>
+         <string>Camera_Location_Here</string>
         </property>
        </widget>
       </item>
@@ -161,7 +161,7 @@
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QWidget" name="videoWidget" native="true"/>
+       <widget class="CVImageWidget" name="videoWidget" native="true"/>
       </item>
       <item row="4" column="0">
        <widget class="QPushButton" name="PreviousFrameButton">
@@ -240,16 +240,16 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="cancelButton">
+       <widget class="QPushButton" name="doneButton">
         <property name="text">
-         <string>Cancel</string>
+         <string>Done</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="continueButton">
+       <widget class="QPushButton" name="addAnotherCameraButton">
         <property name="text">
-         <string>Continue</string>
+         <string>Add Another Camera</string>
         </property>
        </widget>
       </item>
@@ -258,6 +258,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CVImageWidget</class>
+   <extends>QWidget</extends>
+   <header>CVImageWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

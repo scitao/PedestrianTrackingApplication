@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1040</width>
-    <height>670</height>
+    <width>1290</width>
+    <height>760</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -29,6 +29,11 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>Camera Overview</string>
+       </attribute>
+      </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>Track Pedestrians</string>
@@ -137,7 +142,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1040</width>
+     <width>1290</width>
      <height>21</height>
     </rect>
    </property>
@@ -195,6 +200,15 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QDockWidget" name="timelineDock">
+   <property name="windowTitle">
+    <string>Time Line</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2"/>
   </widget>
   <action name="actionSettings">
    <property name="text">

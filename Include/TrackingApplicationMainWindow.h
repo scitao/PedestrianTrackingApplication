@@ -103,12 +103,17 @@ public slots:
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	void loadProject();
 	void createNewProject();
+	void saveProject();
 
 	// Public Ui Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void enableMainUi(bool mainUiIsEnabled);
+	void enableMainUi();
+	void disableMainUi();
 	void updateUserInterfaceProjectInformation();
+	void populateMainUiWithProjectInformation();
 	void showWelcomeDialog();
+	void nullifyWelcomeDialog();
+	void nullifyNewProjectWizard();
 
 signals:
 

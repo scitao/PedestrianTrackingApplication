@@ -13,13 +13,11 @@
 //==================================================
 // Qt Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include <qmainwindow.h>
-#include <qdebug.h>
+
 #include <qobject.h>
 #include <qmessagebox.h>
 #include <qevent.h>
 #include <qfiledialog.h>
-#include <qapplication.h>
 #include <qdesktopwidget.h>
 #include <qscreen.h>
 #include <qsize.h>
@@ -42,11 +40,11 @@
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include "Video.h"
-#include "CVImageWidget.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#include "ui_CreateNewProjectWizardPage2.h"
+
+
 
 // Namespaces
 //==================================================
@@ -61,7 +59,6 @@ using cv::Size;
 using cv::Mat;
 using cv::namedWindow;
 using cv::imshow;
-using cv::VideoCapture;
 
 // Definitions
 //==================================================
@@ -71,75 +68,44 @@ using cv::VideoCapture;
 // Class Declaration
 //==================================================
 
-namespace Ui
-{
-	class createNewProjectWizardPage2;
-}
 
-class NewProjectWizardPage2 : public QWidget
+
+class Camera : public QObject
 {
 	Q_OBJECT
 
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	NewProjectWizardPage2(QDialog *parent = 0);
-	~NewProjectWizardPage2();
+	Camera(QString _name, QString _locationDescription, QObject *parent = 0);
+	~Camera();
+
+	// Public Setters
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	void addVideo(Video* _video);
+	void addVideos(QList<Video*> _videos);
+	void setCameraName(QString _name);
+	void setCameraLocationDescription(QString _locationDescription);
 
 	// Public Getters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	QList<Video*> getVideos();
+	QString getCameraName();
+	QString getCameraLocationDescription();
 
-	// Public Setters
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void setStartingDate(QDate _startingDate);
-
-	// Public Methods
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void createVideo();
-
-	// Public Variables
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Ui::createNewProjectWizardPage2* page2;
-
-
-
-	public slots:
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void browseForVideoFile();
-	void previousFrame();
-	void nextFrame();
-	void sliderChanged();
-	void frameSpinBoxChanged();
-	void renderVideoFrame(lInt frameNumber);
-	void addAnotherVideo();
-
-
-
-	// Public Ui Slots
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-signals:
 
 private:
 	// Private Methods
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QString getVideoFileNameOnly();
+
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QString currentVideoFileName; 
-	QList<QString> videoFileNames;
-	QList<Video*> videos;
-	QRect screenSize;
-
-	// Video Variables
-	VideoCapture cap;
-	Mat currentImage;
-	QDate startDate; 
-
+	QString cameraName;
+	QString cameraLocationDescription;
+	QList<Video*> videoList;
 
 	// Private Flags
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
