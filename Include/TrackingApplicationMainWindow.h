@@ -46,7 +46,7 @@
 #include "SaveProject.h"
 #include "LoadProject.h"
 #include "ProjectVariables.h"
-
+#include "qcustomplot.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
