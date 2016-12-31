@@ -102,6 +102,23 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="3" column="0" colspan="2">
+       <widget class="QSlider" name="videoPositionSlider">
+        <property name="maximum">
+         <number>999999999</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="PreviousFrameButton">
+        <property name="text">
+         <string>Previous Frame</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="0" colspan="2">
        <widget class="QLabel" name="videoFileNameLabel">
         <property name="sizePolicy">
@@ -112,27 +129,6 @@
         </property>
         <property name="text">
          <string>No Video File Selected!</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="browseForVideoFileButton">
-        <property name="text">
-         <string>Browse for Video File</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Sync Time:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Sync Frame :</string>
         </property>
        </widget>
       </item>
@@ -153,6 +149,20 @@
         </property>
        </widget>
       </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Sync Frame :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="browseForVideoFileButton">
+        <property name="text">
+         <string>Browse for Video File</string>
+        </property>
+       </widget>
+      </item>
       <item row="6" column="1">
        <widget class="QDateTimeEdit" name="syncDateTimeEdit">
         <property name="alignment">
@@ -160,23 +170,20 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="CVImageWidget" name="videoWidget" native="true"/>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="PreviousFrameButton">
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Previous Frame</string>
+         <string>Sync Time:</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QSlider" name="videoPositionSlider">
-        <property name="maximum">
-         <number>999999999</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+      <item row="1" column="0" colspan="2">
+       <widget class="CVImageWidget" name="videoWidget" native="true"/>
+      </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QPushButton" name="addAnotherVideoFileButton">
+        <property name="text">
+         <string>Confirm Sync and Add Another Video File</string>
         </property>
        </widget>
       </item>
@@ -208,13 +215,6 @@
        <widget class="QLabel" name="label_5">
         <property name="text">
          <string>Video Files for Current Camera</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QPushButton" name="addAnotherVideoFileButton">
-        <property name="text">
-         <string>Add Another Video File</string>
         </property>
        </widget>
       </item>

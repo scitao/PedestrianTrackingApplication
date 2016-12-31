@@ -52,3 +52,8 @@ QString Camera::getCameraLocationDescription()
 {
 	return cameraLocationDescription;
 }
+
+CameraItem* Camera::getCameraItem()
+{
+	return cameraItem;
+}

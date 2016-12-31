@@ -14,6 +14,7 @@
 // Qt Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#include <QtCore>
 #include <qobject.h>
 #include <qmessagebox.h>
 #include <qevent.h>
@@ -21,6 +22,7 @@
 #include <qdesktopwidget.h>
 #include <qscreen.h>
 #include <qsize.h>
+
 
 // OpenCV Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +42,6 @@
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include "Video.h"
-#include "CameraItem.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,29 +72,35 @@ using cv::imshow;
 
 
 
-class Camera : public QObject
+class CameraItem
 {
-	Q_OBJECT
-
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Camera(QString _name, QString _locationDescription, QObject *parent = 0);
-	~Camera();
+	CameraItem(const QVector<QVariant> &data, CameraItem* parent = 0);
+	~CameraItem();
+
+	// Public Methods
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	CameraItem* child(int number);
+	int childCount() const;
+	int columnCount() const;
+	
+	bool insertChildren(int position, int count, int columns);
+	bool insertColumns(int position, int columns);
+	CameraItem* parent();
+	bool removeChildren(int position, int count);
+	bool removeColumns(int position, int columns);
+	int childNumber() const;
+	
 
 	// Public Setters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void addVideo(Video* _video);
-	void addVideos(QList<Video*> _videos);
-	void setCameraName(QString _name);
-	void setCameraLocationDescription(QString _locationDescription);
+	bool setData(int column, const QVariant &value);
 
 	// Public Getters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QList<Video*> getVideos();
-	QString getCameraName();
-	QString getCameraLocationDescription();
-	CameraItem* getCameraItem();
+	QVariant data(int column) const;
 
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,10 +112,9 @@ private:
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QString cameraName;
-	QString cameraLocationDescription;
-	QList<Video*> videoList;
-	CameraItem* cameraItem;
+	QList<CameraItem*> childItems;
+	QVector<QVariant> itemData;
+	CameraItem* parentItem;
 
 	// Private Flags
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

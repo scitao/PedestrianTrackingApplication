@@ -40,7 +40,7 @@
 
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+#include "CameraItem.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,18 +73,25 @@ struct Video
 {
 public:
 	// Setters
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	void setVideoDirectory(QString _videoDirectory);
 	void setSyncStartTime(QDateTime _syncStartTime);
 	void setNumberOfFrames(lInt _numberOfFrames);
 	void setVideoFileName(QString _videoFileName);
+	void setCameraItem(CameraItem* _cameraItem);
 
 	// Getters
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	CameraItem* getCameraItem();
 	QString getVideoFileName();
 	QString getVideoDirectory();
 	QDateTime getSyncStartTime();
 	lInt getNumberOfFrames();
 
 private:
+	// Private Variables
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	CameraItem* cameraItem;
 	QString videoFileName;
 	QString videoDirectory;
 	QDateTime syncStartTime;

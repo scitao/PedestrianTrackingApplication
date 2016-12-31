@@ -22,6 +22,10 @@ void Video::setVideoFileName(QString _videoFileName)
 	videoFileName = _videoFileName;
 }
 
+void Video::setCameraItem(CameraItem* _cameraItem)
+{
+	cameraItem = _cameraItem;
+}
 
 // Getters
 //==================================================
@@ -43,4 +47,9 @@ lInt Video::getNumberOfFrames()
 QString Video::getVideoFileName()
 {
 	return videoFileName;
+}
+
+CameraItem* Video::getCameraItem()
+{
+	return cameraItem;
 }

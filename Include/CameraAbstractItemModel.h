@@ -1,7 +1,9 @@
 // Preamble
 //==================================================
 /*
-
+A model/view to be used for organising the camera system
+for a project. Actual camera and video items will be kept 
+separate from the model/view architecture. 
 
 */
 
@@ -11,9 +13,9 @@
 
 // Include Directories
 //==================================================
+
 // Qt Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 #include <qobject.h>
 #include <qmessagebox.h>
 #include <qevent.h>
@@ -21,11 +23,11 @@
 #include <qdesktopwidget.h>
 #include <qscreen.h>
 #include <qsize.h>
+#include <qabstractitemmodel.h>
 
 // OpenCV Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include <opencv2\opencv.hpp>
-
 
 // STL
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +42,6 @@
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include "Video.h"
-#include "CameraItem.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,29 +72,21 @@ using cv::imshow;
 
 
 
-class Camera : public QObject
+class CameraAbstractItemModel : public QAbstractItemModel
 {
 	Q_OBJECT
 
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Camera(QString _name, QString _locationDescription, QObject *parent = 0);
-	~Camera();
+	CameraAbstractItemModel(QString _name, QString _locationDescription, QObject *parent = 0);
+	~CameraAbstractItemModel();
 
 	// Public Setters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void addVideo(Video* _video);
-	void addVideos(QList<Video*> _videos);
-	void setCameraName(QString _name);
-	void setCameraLocationDescription(QString _locationDescription);
 
 	// Public Getters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QList<Video*> getVideos();
-	QString getCameraName();
-	QString getCameraLocationDescription();
-	CameraItem* getCameraItem();
 
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,10 +98,7 @@ private:
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QString cameraName;
-	QString cameraLocationDescription;
-	QList<Video*> videoList;
-	CameraItem* cameraItem;
+
 
 	// Private Flags
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

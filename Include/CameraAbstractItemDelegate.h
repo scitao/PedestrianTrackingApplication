@@ -21,6 +21,7 @@
 #include <qdesktopwidget.h>
 #include <qscreen.h>
 #include <qsize.h>
+#include <qabstractitemdelegate.h>
 
 // OpenCV Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,7 +41,6 @@
 // Program Directories
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #include "Video.h"
-#include "CameraItem.h"
 
 // GUI Headers 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,29 +71,21 @@ using cv::imshow;
 
 
 
-class Camera : public QObject
+class CameraAbstractItemDelegate : public QAbstractItemDelegate
 {
 	Q_OBJECT
 
 public:
 	// Constructors and Destructors
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	Camera(QString _name, QString _locationDescription, QObject *parent = 0);
-	~Camera();
+	CameraAbstractItemDelegate(QString _name, QString _locationDescription, QObject *parent = 0);
+	~CameraAbstractItemDelegate();
 
 	// Public Setters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	void addVideo(Video* _video);
-	void addVideos(QList<Video*> _videos);
-	void setCameraName(QString _name);
-	void setCameraLocationDescription(QString _locationDescription);
 
 	// Public Getters
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QList<Video*> getVideos();
-	QString getCameraName();
-	QString getCameraLocationDescription();
-	CameraItem* getCameraItem();
 
 	// Public Slots
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,10 +97,7 @@ private:
 
 	// Private Variables
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	QString cameraName;
-	QString cameraLocationDescription;
-	QList<Video*> videoList;
-	CameraItem* cameraItem;
+
 
 	// Private Flags
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
